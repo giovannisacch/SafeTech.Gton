@@ -47,11 +47,17 @@ namespace SafeTech.Gton.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var model = await _patientRepository.FindByIdAsync(id);
+            try
+            {
+                var model = await _patientRepository.FindByIdAsync(id);
 
-            var viewModel = _mapper.Map<Patient, PatientDto>(model);
-
-            return Ok(viewModel);
+                var viewModel = _mapper.Map<Patient, PatientDto>(model);
+                return Ok(viewModel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message+ "STACK TRACE                   " + ex.StackTrace);
+            }
         }
 
         // POST api/<PatientController>
