@@ -9,10 +9,10 @@ namespace SafeTech.Gton.Infra.Data.Models
     {
         [Column("nome")]
         public string Name { get; set; }
-        [Column("tipoIsquemia")]
-        public string IschemiaType { get; set; }
+        [Column("tempoIsquemia")]
+        public string IschemiaTime { get; set; }
         [Column("tipoTransfusao")]
-        public int TransfusionType { get; set; }
+        public string TransfusionType { get; set; }
         public List<Organ> OrganCollection { get; set; }
     }
 }

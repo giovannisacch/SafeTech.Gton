@@ -9,6 +9,7 @@ namespace SafeTech.Gton.Dtos
 {
     public class PatientDto
     {
+        public int Id { get; private set; }
         [Required(ErrorMessage = "Name é obrigatório")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Gender é obrigatório")]

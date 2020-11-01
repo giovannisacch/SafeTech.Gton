@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SafeTech.Gton.Infra.Data.Enums;
 using SafeTech.Gton.Infra.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,13 @@ namespace SafeTech.Gton.Infra.Data.Mappings
             builder.HasKey(c => c.Id);
             builder.Property(x => x.Id).HasColumnName("idOperacao");
 
-            builder.Ignore(x => x.AmbulanceId);
+            builder
+                .Property(x => x.Status)
+                .HasConversion
+                (
+                    asEnum => (int)asEnum,
+                    asInt => (EOperationStatus)asInt
+                );
 
             builder
                 .HasOne(x => x.SourceUnity)

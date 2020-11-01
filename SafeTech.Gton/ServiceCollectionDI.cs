@@ -15,6 +15,8 @@ namespace SafeTech.Gton
             services.AddSingleton(AutoMapperConfig.RegisterMappings());
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IOrganRepository, OrganRepository>();
+            services.AddScoped<IOrganTypeRepository, OrganTypeRepository>();
+            services.AddScoped<IOperationRepository, OperationRepository>();
 
             services.AddDbContext<GtonContext>(ctx =>
                  ctx.UseMySql(configuration.GetConnectionString("Gton"),

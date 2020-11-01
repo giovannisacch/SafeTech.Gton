@@ -14,6 +14,9 @@ namespace SafeTech.Gton.Mappings
         {
             CreateMap<PatientDto, Patient>();
             CreateMap<OrganDto, Organ>();
+            CreateMap<OrganTypeDto, OrganType>();
+            CreateMap<OperationDto, Operation>();
+            CreateMap<OperationHistoryDto, OperationHistory>();
         }
     }
 }

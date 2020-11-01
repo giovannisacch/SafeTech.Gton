@@ -15,7 +15,7 @@ namespace SafeTech.Gton.Controllers
     [ApiController]
     public class OrganController : ControllerBase
     {
-        private IOrganRepository _organRepository;
+        private readonly IOrganRepository _organRepository;
         private readonly IMapper _mapper;
 
         public OrganController(IOrganRepository organRepository, IMapper mapper)
@@ -57,6 +57,8 @@ namespace SafeTech.Gton.Controllers
         public async Task<IActionResult> Put(int id, [FromBody] OrganDto organDto)
         {
             var actualData = await _organRepository.FindByIdAsync(id);
+            if (actualData == null)
+                return BadRequest(new ErrorResponseModel("Tipo de orgão não encontrado"));
             actualData = _mapper.Map<OrganDto, Organ>(organDto, actualData);
             await _organRepository.UpdateAsync(actualData);
             return Ok(actualData);
@@ -68,8 +70,8 @@ namespace SafeTech.Gton.Controllers
         {
             var model = await _organRepository.FindByIdAsync(id);
             if (model == null)
-                return BadRequest(new { Message = "Orgão não encontrado" });
-
+                return BadRequest(new ErrorResponseModel("Orgão não encontrado"));
+            await _organRepository.DeleteAsync(model);
             return Ok();
         }
     }

@@ -15,7 +15,7 @@ namespace SafeTech.Gton.Controllers
     [ApiController]
     public class PatientController : ControllerBase
     {
-        private IPatientRepository _patientRepository;
+        private readonly IPatientRepository _patientRepository;
         private readonly IMapper _mapper;
 
         public PatientController(IPatientRepository patientRepository, IMapper mapper)
@@ -106,6 +106,7 @@ namespace SafeTech.Gton.Controllers
             var model = await _patientRepository.FindByIdAsync(id);
             if (model == null)
                 return BadRequest(new ErrorResponseModel("Paciente não encontrado") );
+            await _patientRepository.DeleteAsync(model);
 
             return Ok();
         }
