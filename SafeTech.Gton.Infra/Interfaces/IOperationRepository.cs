@@ -11,6 +11,7 @@ namespace SafeTech.Gton.Infra.Data.Interfaces
     {
         Task<Operation> GetOperationWithHistoryIncludedByIdAsync(int id);
         Task<List<Operation>> GetAllOperationWithHistoryIncludedAsync();
+        Task<Operation> GetOperationWithHistoryAndPatientsIncludedByIdAsync(int id);
 
     }
 }

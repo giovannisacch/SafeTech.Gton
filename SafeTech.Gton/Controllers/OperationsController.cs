@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using SafeTech.Gton.Dtos;
+using SafeTech.Gton.Dtos.Screen;
 using SafeTech.Gton.Infra.Data.Interfaces;
 using SafeTech.Gton.Infra.Data.Models;
 
@@ -21,6 +22,21 @@ namespace SafeTech.Gton.Controllers
         {
             _operationRepository = operationRepository;
             _mapper = mapper;
+        }
+
+
+        [HttpGet("screen/list/{operationId}")]
+        public async Task<IActionResult> GetOperationDetails(int operationId)
+        {
+            var model = await _operationRepository.GetOperationWithHistoryAndPatientsIncludedByIdAsync(operationId);
+            return Ok(_mapper.Map<Operation, OperationScreenResponseDto>(model));
+        }
+        [HttpGet("screen/steps/{operationId}")]
+        public async Task<IActionResult> GetOperationSteps(int operationId)
+        {
+            var model = await _operationRepository.GetOperationWithHistoryAndPatientsIncludedByIdAsync(operationId);
+            return Ok(_mapper.Map<Operation, OperationStepsScreenResponseDto>(model));
+
         }
 
         // GET: api/<OperationsController>
@@ -75,7 +91,8 @@ namespace SafeTech.Gton.Controllers
 
             actualData.AddNewOperationHistory();
             await _operationRepository.UpdateAsync(actualData);
-            return Ok(actualData);
+
+            return Ok(_mapper.Map<Operation, OperationDto>(actualData));
         }
 
 

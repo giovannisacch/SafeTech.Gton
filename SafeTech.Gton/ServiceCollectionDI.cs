@@ -17,6 +17,7 @@ namespace SafeTech.Gton
             services.AddScoped<IOrganRepository, OrganRepository>();
             services.AddScoped<IOrganTypeRepository, OrganTypeRepository>();
             services.AddScoped<IOperationRepository, OperationRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddDbContext<GtonContext>(ctx =>
                  ctx.UseMySql(configuration.GetConnectionString("Gton"),

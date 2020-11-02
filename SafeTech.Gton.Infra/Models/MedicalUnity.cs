@@ -18,6 +18,7 @@ namespace SafeTech.Gton.Infra.Data.Models
 
         public List<Operation> OperationSourceCollection { get; set; }
         public List<Operation> OperationTargetCollection { get; set; }
+        public List<User> UserCollection { get; set; }
 
 
     }

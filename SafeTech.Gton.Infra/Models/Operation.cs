@@ -12,11 +12,11 @@ namespace SafeTech.Gton.Infra.Data.Models
     public class Operation : BaseModel
     {
         //SourceUnityId hardcoded devido a tempo e não faz parte do MVP, dessa forma nao tem que ser criado todo um crud
-        [Column("idUnidade_origem")]
+        [Column("idUnidadeOrigem")]
         public int SourceUnityId { get; set; } = 1;
         public MedicalUnity SourceUnity { get; set; }
         //TargetUnityId hardcoded devido a tempo e não faz parte do MVP, dessa forma nao tem que ser criado todo um crud
-        [Column("idUnidade_destino")]
+        [Column("idUnidadeDestino")]
         public int TargetUnityId { get; set; } = 2;
         public MedicalUnity TargetUnity { get; set; }
         //AmbulanceId hardcoded devido a tempo e não faz parte do MVP, dessa forma nao tem que ser criado todo um crud
@@ -49,8 +49,7 @@ namespace SafeTech.Gton.Infra.Data.Models
                 };
                 return;
             }
-            OperationHistoryCollection.OrderBy(x => x.Status).First().EndDate = DateTime.Now;
-            var lastOperation = OperationHistoryCollection.OrderBy(x => x.Status).First();
+            var lastOperation = OperationHistoryCollection.OrderByDescending(x => x.Status).First();
             var nextOperationStepStatusInt = (int)lastOperation.Status + 1;
             OperationHistoryCollection.Add
                 (

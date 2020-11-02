@@ -19,6 +19,18 @@ namespace SafeTech.Gton.Infra.Data.Repositories
             return await db.Include(x => x.OperationHistoryCollection).ToListAsync();
         }
 
+        public async Task<Operation> GetOperationWithHistoryAndPatientsIncludedByIdAsync(int id)
+        {
+            return await db
+                        .Include(x => x.OperationHistoryCollection)
+                        .Include(x => x.Organ)
+                        .ThenInclude(x => x.GiverPatient)
+                        .Include(x => x.Organ)
+                        .ThenInclude(x => x.ReceiverPatient)
+                        .Include(x => x.TargetUnity)
+                        .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<Operation> GetOperationWithHistoryIncludedByIdAsync(int id)
         {
             return await db
